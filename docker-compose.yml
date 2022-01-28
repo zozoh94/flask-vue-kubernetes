@@ -16,6 +16,20 @@ services:
     depends_on:
       - postgres
 
+  server:
+    build:
+      context: ./services/server
+      dockerfile: Dockerfile
+    ports:
+      - 5001:5000
+    environment:
+      - FLASK_ENV=development
+      - APP_SETTINGS=project.config.DevelopmentConfig
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - postgres
+
   postgres:
     build:
       context: ./services/db
@@ -36,3 +50,15 @@ services:
       - server
     environment:
       - ROOT_API=http://localhost:5001
+
+  init:
+    build:
+      context: ./services/server
+      dockerfile: Dockerfile-init
+    depends_on:
+      - postgres
+    environment:
+      - FLASK_ENV=development
+      - APP_SETTINGS=project.config.DevelopmentConfig
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
