@@ -12,11 +12,12 @@ export default {
   data() {
     return {
       msg: '',
+      ROOT_API: process.env.ROOT_API,
     };
   },
   methods: {
     getMessage() {
-      const path = 'http://hello.world/books/ping';
+      const path = `${this.ROOT_API}/books/ping`;
       axios.get(path)
         .then((res) => {
           this.msg = res.data;
