@@ -10,11 +10,9 @@ RUN npm install
 
 COPY . .
 
-COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
+COPY ./start.sh /start.sh
+RUN chmod +x /start.sh
 
 EXPOSE 8080
 
-CMD [ "http-server", "dist" ]
+CMD [ "/start.sh" ]
