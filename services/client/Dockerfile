@@ -17,7 +17,7 @@ RUN chmod +x /usr/src/app/start.sh
 
 COPY . /usr/src/app
 
-RUN dos2unix /usr/src/app/start.sh
+RUN find . -type f -not -path "./node_modules/*" -print0 | xargs -0 dos2unix
 
 EXPOSE 8080
 
