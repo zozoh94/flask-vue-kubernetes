@@ -3,6 +3,7 @@ version: '3.8'
 services:
 
   server:
+    image: zozoh94/flask-vue-server:v1.0
     build:
       context: ./services/server
       dockerfile: Dockerfile
@@ -27,6 +28,7 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   client:
+    image: zozoh94/flask-vue-client:v1.0
     build:
       context: ./services/client
       dockerfile: Dockerfile
@@ -38,6 +40,7 @@ services:
       - ROOT_API=http://localhost:5001
 
   init:
+    image: zozoh94/flask-vue-init:v1.0
     build:
       context: ./services/server
       dockerfile: Dockerfile-init
