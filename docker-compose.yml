@@ -4,9 +4,9 @@ services:
 
   server:
     image: zozoh94/flask-vue-server:v1.0
-    build:
-      context: ./services/server
-      dockerfile: Dockerfile
+    #build:
+    #  context: ./services/server
+    #  dockerfile: Dockerfile
     ports:
       - 5001:5000
     environment:
@@ -29,9 +29,9 @@ services:
 
   client:
     image: zozoh94/flask-vue-client:v1.0
-    build:
-      context: ./services/client
-      dockerfile: Dockerfile
+    #build:
+    #  context: ./services/client
+    #  dockerfile: Dockerfile
     ports:
       - 8080:8080
     depends_on:
@@ -41,9 +41,9 @@ services:
 
   init:
     image: zozoh94/flask-vue-init:v1.0
-    build:
-      context: ./services/server
-      dockerfile: Dockerfile-init
+    #build:
+    #  context: ./services/server
+    #  dockerfile: Dockerfile-init
     depends_on:
       - postgres
     environment:
