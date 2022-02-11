@@ -2,8 +2,8 @@ import os
 
 POSTGRES_USER = os.environ.get('POSTGRES_USER')
 POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
-DATABASE_URL = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@postgres:5432/books'
-
+POSTGRES_HOST = os.environ.get('POSTGRES_HOST')
+DATABASE_URL = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:5432/books'
 
 class BaseConfig:
     """Base configuration"""
