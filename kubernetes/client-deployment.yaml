@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+  labels:
+    app: flaskvue
+    tier: client
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      tier: client
+  template:
+    metadata:
+      name: client-pod
+      labels:
+        app: flaskvue
+        tier: client
+    spec:
+      containers:
+        - name: client-container
+          image: zozoh94/flask-vue-client:v1.1
+          env:
+            - name: ROOT_API
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: root_api

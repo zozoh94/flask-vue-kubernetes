@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+  labels:
+    app: flaskvue
+    tier: server
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      tier: server
+  template:
+    metadata:
+      name: server-pod
+      labels:
+        app: flaskvue
+        tier: server
+    spec:
+      containers:
+        - name: server-container
+          image: zozoh94/flask-vue-server:v1.1
+          env:
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: postgres_host
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: password
+            - name: FLASK_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: flask_env
+            - name: APP_SETTINGS
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: app_settings

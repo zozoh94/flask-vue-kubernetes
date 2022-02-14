@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap
+  labels:
+    app: flaskvue
+data:
+  postgres_host: "db-service"
+  app_settings: "project.config.ProductionConfig"
+  flask_env: "production"
+  root_api: "http://flask.local"

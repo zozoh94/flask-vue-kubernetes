@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-service
+  labels:
+    app: flaskvue
+spec:
+  selector:
+    tier: server
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000

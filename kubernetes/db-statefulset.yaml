@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db-statefulset
+  labels:
+    app: flaskvue
+    tier: db
+spec:
+  selector:
+    matchLabels:
+      tier: db
+  serviceName: "db-service"
+  replicas: 1
+  template:
+    metadata:
+      name: db-pod
+      labels:
+        app: flaskvue
+        tier: db
+    spec:
+      containers:
+        - name: db-container
+          image: zozoh94/flask-vue-db:v1.1
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: password
+          volumeMounts:
+            - name: pgdata
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: pgdata
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 200Mi
